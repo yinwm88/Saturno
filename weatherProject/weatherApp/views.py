@@ -32,8 +32,10 @@ def csv_a_diccionario(archivo):
 
     return diccionario
 
+
+
 '''
-    Función para ver si la llave se encuntra en el diccionario, 
+    Función para ver si la llave se encuentra en el diccionario, 
     con esto revisaremos si la entrada es un ticket o un nombre de una ciudad
 '''
 def esTicket(diccionario, clave):
@@ -43,15 +45,12 @@ def esTicket(diccionario, clave):
         return False
 
 
-'''
-    Función para, dado el ticket, ver si existe y, en dado 
-    de que el ticket si exista, no devolvera las coordenadas de cada ciudad.
-'''
+
 
 '''
     Funcion para obtener coordenas con GeoCoding.
 '''
-def getCoordenasGC(city, appid):
+def getCoordenadasGC(city, appid):
     try:
         geoUrl = "http://api.openweathermap.org/geo/1.0/direct"
         geoParams = {'q': city, 'appid': appid}
@@ -66,6 +65,23 @@ def getCoordenasGC(city, appid):
             return city, "No se pudo localizar.", None
     except requests.exceptions.RequestException as e:
         return city, "No se encontro el clima.", None
+
+'''
+    Función para, dado el ticket, devolver las coordenadas de cada ciudad.
+'''
+def getCoordenadasDS(ticket, archivo):
+    diccionarioTicketsData = csv_a_diccionario(archivo) 
+    clave = ticket
+     
+    latOrigin = diccionarioTicketsData[clave]['origin_latitude']
+    lonOrigin = diccionarioTicketsData[clave]['origin_latitude']
+    latDestination = diccionarioTicketsData[clave]['destination_latitude']
+    lonDestination = diccionarioTicketsData[clave]['destination_latitude']
+     
+    return latOrigin, lonOrigin, latDestination, lonDestination
+
+
+
 
 '''
     Función para obtener el clima de una ciudad.
@@ -84,12 +100,15 @@ def obtenerClima(lat, lon, appid):
        
 
 '''
-    Función para obtener los climas de las ciudades involucradas en un ticket de viaje.
+    Función para obtener los climas de dos ciudades.
 '''
 def obtenerClimas(func, lat1, lon1, lat2, lon2, appid):
         clima1 = func(lat1, lon1, appid)
         clima2 = func(lat2, lon2, appid) 
         return clima1, clima2
+
+
+
 
 '''
     Función para mostrar la página de inicio.
@@ -101,7 +120,7 @@ def index(request):
         entrada = request.POST.get('city', '')#puede ser un ticket o nombre
         if entrada:
             appid = readData('data/apiKey.txt')
-            lat, lon = getCoordenasGC(entrada, appid)
+            lat, lon = getCoordenadasGC(entrada, appid)
             description, icon = obtenerClima(lat, lon, appid)
 
     return render(request, 'weatherApp/index.html', {'entrada': entrada, 
