@@ -14,7 +14,7 @@
       }
       .header-container img {
         margin-right: 10px; 
-        width: 70px;
+        width: 80px;
       }
     </style>
   </head>
@@ -32,13 +32,16 @@
       <button type ="submit">Consultar clima</button>
     </form>
 
-        <h2>{{city}}</h2>
-        <h2>{{description}}</h2>
-
+        {% if entrada is not None  %}
+          <h2>{{entrada}}</h2>
+        {% endif %}
+        {% if description is not None %}
+          <h2>{{description}}</h2>
+        {% endif %}
         {% if icon is not None %}
-        <img src = "http://openweathermap.org/img/w/{{icon}}.png" width="100px"/>
+          <img src = "http://openweathermap.org/img/w/{{icon}}.png" width="100px"/>
         {% else %}
-        <img src = ""/>
+          <img src = ""/>
         {% endif %}
         
   </body>
