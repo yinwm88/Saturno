@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="author" />
+    <meta name="keywords" content="keywords" />
+    <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
+    <title>weatherApp</title>
+    <style>
+      .header-container {
+        display: flex;
+        align-items: center; 
+      }
+      .header-container img {
+        margin-right: 10px; 
+        width: 70px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header-container">
+      <img src="https://cdn-icons-png.flaticon.com/512/3209/3209665.png"/>
+      <h1><b>Saturno</b></h1>
+    </div>
+
+    <form method="POST"> {% csrf_token %}
+      <input type='text' placeholder='Ingrese una ciudad' name='city'/>
+      <button type ="submit">Consultar clima</button>
+    </form>
+
+        <h2>{{city}}</h2>
+        <h2>{{description}}</h2>
+
+        {% if icon is not None %}
+        <img src = "http://openweathermap.org/img/w/{{icon}}.png" width="100px"/>
+        {% else %}
+        <img src = ""/>
+        {% endif %}
+
+      
+            
+        
+
+    
+
+      
+
+        
+  </body>
+</html>
