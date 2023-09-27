@@ -46,8 +46,6 @@ def es_ticket(diccionario, clave):
         return False
 
 
-
-
 '''
     Funcion para obtener coordenas con GeoCoding.
 '''
@@ -88,7 +86,6 @@ def get_coordenadas_ds(ticket, diccionario):
 '''
     Función para obtener el clima de una ciudad.
 '''
-import requests
 
 def obtener_clima(lat, lon, appid):
     try:
@@ -132,29 +129,34 @@ def get_nombres( ticket, diccionario):
     La entrada puede er un ticket o el nombre de una ciudad
 '''
 def index(request):
-    entrada, description, icon = None, None, None  
+    entrada = None
     if request.method == 'POST':
         entrada = request.POST.get('city', '')#puede ser un ticket o nombre
         if entrada:
-            descriptionD, iconD, latD, lonD, latO, lonO, dict_cadena =None, None, None, None, None , None, None
-            appid = '7e0007b2bdccf8fd143f738bc8d7644b'
-            ticket = entrada
-            entrada = None
+            appid = read_data('weatherApp/data/apiKey.txt')
             diccionario = csv_a_diccionario('weatherApp/data/dataset2.csv')
-            dict_cadena = json.dumps(diccionario)
-            latO, lonO, latD, lonD = get_coordenadas_ds(ticket, diccionario)
-           
-            return render(request, 'weatherApp/index.html', {'entrada': entrada, 
-                                                            'description': description, 
-                                                            'icon': icon,
-                                                            'descriptionD': descriptionD,
-                                                            'iconD': iconD,
-                                                            'dict_cadena': dict_cadena,
-                                                            'lat': latO,
-                                                            'latD': latD,
-                                                            'lonO':lonO,
-                                                            'lonD':lonD})
-
+            is_ticket = es_ticket(diccionario, entrada)
+            if is_ticket:
+                ticket = entrada
+                entrada = None
+                latO, lonO, latD, lonD = get_coordenadas_ds(ticket, diccionario)
+                description, icon = obtener_clima(latO, lonO, appid)
+                descriptionD, iconD = obtener_clima(latD, lonD, appid)
+                cityO, cityD = get_nombres(ticket, diccionario)
+                return render(request, 'weatherApp/index.html', {'cityO': cityO,
+                                                                 'description': description, 
+                                                                 'icon': icon,
+                                                                 'cityD':cityD,
+                                                                 'descriptionD': descriptionD,
+                                                                 'iconD': iconD})
+            else:
+                city = entrada
+                entrada = None
+                lat, lon = get_coordenadas_gc(city, appid)
+                description, icon = obtener_clima(lat, lon, appid)
+                return render(request, 'weatherApp/index.html', {'city':city,
+                                                                 'description':description,
+                                                                 'icon':icon})                
         else:
             error_message = "Fallo con la entrada"
             return render(request, 'weatherApp/index.html', {'entrada': entrada, 'error_message': error_message})
