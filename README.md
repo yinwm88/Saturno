@@ -36,3 +36,18 @@ Esto se lográ a través de consultar el diccionario generado por el archivo.csv
 # **Usage**   
 
 </div>
+
+* Instalar virtualenv
+* Crear un entorno virtual
+* Activar el entorno virtual
+* Instalar Django
+* Instalar request
+* Clonar [⛈Saturno⛈](https://github.com/yinwm88/Saturno.git)
+* Ir a la carpeta  weatherProject donde está el ''' manage.py'''
+* Correr en la terminal el iguiente comando:
+```
+  $ python manage.py runservice
+
+```
+* Abrir el url
+* Ingresa la ciudad o ticket del que quieras consultar el clima.
