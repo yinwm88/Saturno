@@ -16,17 +16,21 @@
   
 </div>
 
-<div><b>Consultar el clima de una ciudad dado su nombre:</b></div>
+1. <div><b>Consultar el clima de una ciudad dado su nombre:</b></div>
 
-Esto se lográ a través de las peticiones realizadas a  [Geocoding](https://openweathermap.org/api/geocoding-api#direct_name) para obtener las coordenadas y luego a [OpenWeather](https://openweathermap.org/current#one) para consultar la descripción del clima.
+Esto se lográ a través de las peticiones realizadas a  [Geocoding](https://openweathermap.org/api/geocoding-api#direct_name) para obtener las coordenadas y     luego a [OpenWeather](https://openweathermap.org/current#one) para consultar la descripción del clima.
 
-<div><b>Consultar el clima de la ciudad de origen y la de destino, apartir del número de ticket dado:</b></div>
+2. <div><b>Consultar el clima de la ciudad de origen y la de destino, apartir del número de ticket dado:</b></div>
 
 Esto e lográ a través de consultar el diccionario generado por el archivo.csv dado.
 
 
+
+<div>
+  
 > La consultar en OpenWeather se hará através de las coordenas de la ciudad, ya que, hacer la consulta directamente  por el nombre de la ciudad [ha quedado obsoleto](https://openweathermap.org/current#builtin)
 
+</div>
 <div>
   
 # **Usage**   
