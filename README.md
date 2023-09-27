@@ -43,7 +43,7 @@ Esto se lográ a través de consultar el diccionario generado por el archivo.csv
 * Instalar Django
 * Instalar request
 * Clonar [⛈Saturno⛈](https://github.com/yinwm88/Saturno.git)
-* Ir a la carpeta  weatherProject donde está el ''' manage.py'''
+* Ir a la carpeta  weatherProject donde está el ``` manage.py```
 * Correr en la terminal el iguiente comando:
 ```
   $ python manage.py runservice
