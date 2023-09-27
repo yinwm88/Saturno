@@ -47,7 +47,6 @@ Esto se lográ a través de consultar el diccionario generado por el archivo.csv
 * Correr en la terminal el iguiente comando:
 ```
   $ python manage.py runservice
-
 ```
 * Abrir el url
 * Ingresa la ciudad o ticket del que quieras consultar el clima.
