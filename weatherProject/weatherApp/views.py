@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import requests
 import csv
+import json
 
 
 '''
@@ -70,14 +71,18 @@ def get_coordenadas_gc(city, appid):
     Función para, dado el ticket, devolver las coordenadas de cada ciudad.
 '''
 def get_coordenadas_ds(ticket, diccionario): 
-    if diccionario  and 'origin_latitude' in diccionario[ticket] and 'origin_longitude'  in diccionario[ticket] and 'destination_latitude' in diccionario[ticket] and 'destination_longitude' in diccionario[ticket]:
-        latO = diccionario[ticket]['origin_latitude']
-        lonO = diccionario[ticket]['origin_longitude']
-        latD = diccionario[ticket]['destination_latitude']
-        lonD = diccionario[ticket]['destination_longitude']
-        return latO, lonO, latD, lonD
-    else:
-        return ticket, "No es un ticket.", None, None
+    bool = es_ticket(diccionario,ticket)
+    if bool:
+        clave = ticket
+        if diccionario and isinstance(diccionario, dict) and  'origin_latitude' in diccionario[clave] and 'origin_longitude'  in diccionario[clave] and 'destination_latitude' in diccionario[clave] and 'destination_longitude' in diccionario[clave]:
+            latO = diccionario[clave]['origin_latitude']
+            lonO = diccionario[clave]['origin_longitude']
+            latD = diccionario[clave]['destination_latitude']
+            lonD = diccionario[clave]['destination_longitude']
+            return latO, lonO, latD, lonD
+        else:
+            return ticket, "si es ticket pero algo anda al con acceder a", None, None
+    return ticket,  ticket+ " " + "No es un ticket en:\n" + json.dumps(diccionario), None, None
     
 
 '''
@@ -89,14 +94,14 @@ def obtener_clima(lat, lon, appid):
     try:
         owUrl = "https://api.openweathermap.org/data/2.5/weather"
         owParams = {'lat': lat, 'lon': lon, 'appid': appid}
-        owResp = requests.get(url=owUrl, params=owParams)
+        owResp = requests.get(url=owUrl, params=owParams, timeout=20)
         owResp.raise_for_status()
         djsonOW = owResp.json()
-
         clima = djsonOW['weather'][0]
         icon = clima['icon']
         description = clima['description']
         return description, icon
+    
     except requests.exceptions.RequestException as e:
         # Captura excepciones relacionadas con la solicitud HTTP
         return "Error de solicitud HTTP:", str(e)
@@ -131,20 +136,26 @@ def index(request):
     if request.method == 'POST':
         entrada = request.POST.get('city', '')#puede ser un ticket o nombre
         if entrada:
-            descriptionD, iconD = None, None
+            descriptionD, iconD, latD, lonD, latO, lonO, dict_cadena =None, None, None, None, None , None, None
             appid = '7e0007b2bdccf8fd143f738bc8d7644b'
             ticket = entrada
             entrada = None
-            diccionario = csv_a_diccionario('data/dataset2.csv')
+            diccionario = csv_a_diccionario('weatherApp/data/dataset2.csv')
+            dict_cadena = json.dumps(diccionario)
             latO, lonO, latD, lonD = get_coordenadas_ds(ticket, diccionario)
-            description, icon = obtener_clima(latO, lonO ,appid) 
-            descriptionD, iconD = obtener_clima(latD, lonD, appid)
+           
             return render(request, 'weatherApp/index.html', {'entrada': entrada, 
                                                             'description': description, 
                                                             'icon': icon,
                                                             'descriptionD': descriptionD,
-                                                            'iconD': iconD})
-    else:
-        error_message = "Fallo con la entrada"
-        return render(request, 'weatherApp/index.html', {'entrada': entrada, 'error_message': error_message})
+                                                            'iconD': iconD,
+                                                            'dict_cadena': dict_cadena,
+                                                            'lat': latO,
+                                                            'latD': latD,
+                                                            'lonO':lonO,
+                                                            'lonD':lonD})
+
+        else:
+            error_message = "Fallo con la entrada"
+            return render(request, 'weatherApp/index.html', {'entrada': entrada, 'error_message': error_message})
     return render(request, 'weatherApp/index.html', {'entrada': entrada})

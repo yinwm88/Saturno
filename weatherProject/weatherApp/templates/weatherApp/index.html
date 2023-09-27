@@ -40,12 +40,16 @@
           <div class="alert alert-danger">{{ error_message }}</div>
         {% endif %}
 
-        {% if cityO is not None %}
-          <h2>{{cityO}}</h2>
+        {% if dict_cadena is not None %}
+         <h2>{{dict_cadena}}</h2>
         {% endif %}
 
-        {% if description is not None %}
-          <h2>{{description}}</h2>
+        {% if latO is not None %}
+          <h2>{{latO}}</h2>
+        {% endif %}
+
+        {% if lonO is not None %}
+          <h2>{{lonO}}</h2>
         {% endif %}
 
         {% if icon is not None %}
@@ -54,12 +58,12 @@
           <img src = ""/>
         {% endif %}
 
-        {% if cityD is not None %}
-          <h2>{{cityD}}</h2>
+        {% if lonD is not None %}
+          <h2>{{lonD}}</h2>
         {% endif %}
        
-        {% if descriptionD is not None %}
-          <h2>{{descriptionD}}</h2>
+        {% if latD is not None %}
+          <h2>{{latD}}</h2>
         {% endif %}
 
         {% if iconD is not None %}
