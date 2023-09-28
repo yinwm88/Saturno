@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
@@ -5,18 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="author" />
     <meta name="keywords" content="keywords" />
-    <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
+    <link rel="stylesheet" href= "{% static 'styles.css'%}" type="text/css" />
     <title>SaturnoClimaService</title>
-    <style>
-      .header-container {
-        display: flex;
-        align-items: center; 
-      }
-      .header-container img {
-        margin-right: 10px; 
-        width: 80px;
-      }
-    </style>
+      
   </head>
 
 
@@ -26,43 +18,123 @@
       <img src="https://cdn-icons-png.flaticon.com/512/3209/3209665.png"/>
       <h1><b>Saturno</b></h1>
     </div>
+      
+      <!--CLASS INPUT CONTAINER-->
+    <div class="main-input-container">
+      <form  method="POST"> {% csrf_token %}
+        <input type='text' placeholder='Ingrese una ciudad o ticket ...' name='city'/>
+        <button type ="submit">  <b>Ver clima</b></button>
+      </form>
+    </div>
 
-    <form method="POST"> {% csrf_token %}
-      <input type='text' placeholder='Ingrese una ciudad o ticket...' name='city'/>
-      <button type ="submit">Consultar clima</button>
-    </form>
 
-        {% if error_message %}
-          <div class="alert alert-danger">{{ error_message }}</div>
-        {% endif %}
-   
-          <h2>{{city}}</h2>
-          <h2>{{cityO}}</h2>
+
+    {% if error_message %}
+    <div class="alert-danger">{{ error_message }}</div>
+    {% endif %}
+
+
+    <!--CONSULTA DE UNA SOLA CIUDAD-->
+    {% if city_input is not None %}
     
-          <h2>{{description}}</h2>
-        
-        {% if icon is not None %}
-          <img src = "http://openweathermap.org/img/w/{{icon}}.png" width="100px"/>
-        {% else %}
-          <img src = ""/>
-        {% endif %}
+        <div class="city_input_box">
+            <h2>{{city}}</h2>
+            <h2>{{description}}</h2>
 
-        
-          <h2>{{cityD}}</h2>
-          <h2>{{descriptionD}}</h2>
-        
-        {% if iconD is not None %}
-          <img src = "http://openweathermap.org/img/w/{{iconD}}.png" width="100px"/>
-        {% else %}
-          <img src = ""/>
-        {% endif %}
+            {% if icon is not None %}
+            <img src = "http://openweathermap.org/img/w/{{icon}}.png" width="100px"/>
+            {% else %}
+              <img src = ""/>
+            {% endif %}
 
+            {% if tempC is not None %}
+              <h2>Temperatura: {{tempC}} °C </h2>
+            {% endif %}
+            {% if humidity is not None %}
+              <h2>Humedad: {{humidity}} % </h2>
+            {% endif %}
+            {% if pressure is not None  %}
+              <h2>Presión: {{pressure}} hPa </h2>
+            {% endif %}
+            {% if wind_speed is not None %}
+              <h2>Velocidad de viento: {{wind_speed}} m/s</h2>
+            {% endif %}
+        </div>
+          
+      {% endif %}
+          
+      <!--ENTRADA ES UN TICKET-->  
+      {% if ticket_input is not None %}
+          
+     <div class="by_ticket">
+      
+       <div class="input_box">
+              <!--CITY_ORIGIN-->
+              <h2>Origen: {{cityO}}</h2>
+              <h2>{{description}}</h2>
+
+              {% if icon is not None %}
+                <img src = "http://openweathermap.org/img/w/{{icon}}.png" width="100px"/>
+              {% else %}
+                <img src = ""/>
+              {% endif %}
+
+              {% if tempC is not None %}
+                <h2>Temperatura: {{tempC}} °C </h2>
+              {% endif %}
+              {% if humidity is not None %}
+                <h2>Humedad: {{humidity}} % </h2>
+              {% endif %}
+              {% if pressure is not None  %}
+                <h2>Presión: {{pressure}} hPa </h2>
+              {% endif %}
+              {% if wind_speed is not None %}
+                <h2>Velocidad de viento: {{wind_speed}} m/s</h2>
+              {% endif %}
+      </div>
+      
+      <div class="input_box"> 
+              <!--CITY_DESTINATION-->
+              <h2>Destino: {{cityD}}</h2>
+              <h2>{{descriptionD}}</h2>
+
+              {% if iconD is not None %}
+                <img src = "http://openweathermap.org/img/w/{{iconD}}.png" width="100px"/>
+              {% else %}
+                <img src = ""/>
+              {% endif %}
+
+              {% if tempCD is not None %}
+                <h2>Temperatura: {{tempCD}} °C </h2>
+              {% endif %}
+              {% if humidityD is not None %}
+                <h2>Humedad: {{humidityD}} % </h2>
+              {% endif %}
+              {% if pressureD is not None  %}
+                <h2>Presión: {{pressureD}} hPa </h2>
+              {% endif %}
+              {% if wind_speedD is not None %}
+                <h2>Velocidad de clima: {{wind_speedD}} m/s</h2>
+              {% endif %}
+              
+            </div>
+
+            <div class="frase">
+              <h2>{{ticket_input}}</h2>      
+            </div>
+
+        </div> 
+      {% endif %}
+              
+      
 
           
-  </body>
+    </body>
 
   <footer>
-
+      <div class = "footer_app_name">
+    <h1><b>⛈Saturno⛈</b></h1>
+      </div>
   </footer>
 
 </html>

@@ -1,0 +1,145 @@
+body{
+    background-color:rgba(0, 20, 24, 0.895);
+    color:rgb(254, 254, 253);     
+}
+
+.alert-danger{
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    margin-top: 30px;
+    font-size: 25px;
+    color: rgb(243, 81, 60);
+}
+
+.header-container {
+    font-size: 30px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom:5px;
+}
+
+.header-container img {
+    margin-right: 7px; 
+    width: 80px;
+}
+
+.main-input-container{
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+   
+}
+
+.main-input-container button{
+    border-radius: 8px;
+    color: black;
+    width: 120px;
+    height: 35px;
+    background-color:rgb(231, 218, 105);
+    border: 1px solid black; 
+    margin-right: 5px; 
+    font-size: 19px;
+}
+
+.main-input-container input{
+    border-radius: 5px;
+    padding: 10px;
+    width: 280px;
+    height: 15px;
+    border:none;
+    color: rgb(17, 18, 18);
+    background-color: white;
+    font-size: 18px;
+}
+
+.city_input_box {
+    background-color: rgb(16, 27, 34); /* Color de fondo */
+    padding: 20px; /* Espacio interior de la caja */
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(33, 61, 98, 0.657); /* Sombra suave */
+    text-align: center; /* Alineación del texto al centro */
+    max-width: 400px; /* Ancho máximo de la caja */
+    margin-top:60px; /* Centrar la caja horizontalmente en la página */
+    margin-left: 740px;
+    border-radius: 20px;
+}
+
+.city_input_box h2 {
+    font-size: 23px; /* Tamaño de fuente para los títulos */
+    margin: 10px 0; /* Espacio entre los elementos h2 */
+}
+
+.city_input_box img {
+    max-width: 100px; /* Ancho máximo para la imagen */
+}
+
+main .by_ticket{
+    width: 600px;
+    height: 55px;
+    margin:0 auto;
+}
+
+main .by_ticket div{
+    display: inline-block;  
+}
+
+
+
+.input_box {
+    background-color: rgb(16, 27, 34); /* Color de fondo */
+    padding: 20px; /* Espacio interior de la caja */
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(44, 74, 114, 0.657); /* Sombra suave */
+    text-align: center; /* Alineación del texto al centro */
+    max-width: 400px; /* Ancho máximo de la caja */
+    margin-top:60px; /* Centrar la caja horizontalmente en la página */
+    margin-left: 750px;
+    border-radius: 20px;
+}
+
+.input_box h2 {
+    font-size: 23px; /* Tamaño de fuente para los títulos */
+    margin: 10px 0; /* Espacio entre los elementos h2 */
+}
+
+.input_box img {
+    max-width: 100px; /* Ancho máximo para la imagen */
+}
+
+.frase {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    margin-left: 30px;
+    font-size: 30px;
+    color: rgb(245, 243, 104);
+}
+
+
+footer{
+    width: 100%;
+    margin-top:400px;
+    margin-left: 40px;
+    height: 85px;
+    position: absolute;
+    font-size: 15px;
+    border-top: none;    
+    align-items: center;
+}
+
+footer{
+    margin: 10px;
+    list-style: none;
+    padding-left:3px;
+}
+
+footer .footer_app_name{
+    justify-self:left;
+}
+
+
