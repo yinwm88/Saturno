@@ -21,7 +21,7 @@
       
       <!--CLASS INPUT CONTAINER-->
     <div class="main-input-container">
-      <form  method="POST"> {% csrf_token %}
+      <form  method="POST" autocomplete="off"> {% csrf_token %}
         <input type='text' placeholder='Ingrese una ciudad o ticket ...' name='city'/>
         <button type ="submit">  <b>Ver clima</b></button>
       </form>

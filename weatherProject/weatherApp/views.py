@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import requests
 from .servicesTicket import read_data, csv_a_diccionario, es_ticket,  get_coordenadas_ds, get_nombres 
-
+from django.conf import settings
 '''
     Funcion para obtener coordenas con GeoCoding.
 '''
@@ -59,7 +59,7 @@ def index(request):
     if request.method == 'POST':
         entrada = request.POST.get('city', '')#puede ser un ticket o nombre
         if entrada:
-            appid = read_data('weatherApp/data/apiKey.txt')
+            appid = settings.API_KEY
             diccionario = csv_a_diccionario('weatherApp/data/dataset2.csv')
             is_ticket = es_ticket(diccionario, entrada)
             if is_ticket:
